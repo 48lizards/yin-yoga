@@ -15,6 +15,8 @@ export type Pose = {
 
 export type SequencePose = {
   name: string;
+  startTime: number;
+  endTime: number;
   durationSeconds: number;
 };
 

@@ -40,18 +40,31 @@ export function generateSequence(totalDurationMinutes: number): Sequence {
   const halfPoseDurationSeconds = poseDurationSeconds / 2;
 
   const sequence = [];
+  let poseStartTime = 0;
   for (const pose of poses) {
     if (pose.isSymmetrical) {
-      sequence.push({ name: pose.name, durationSeconds: poseDurationSeconds });
+      sequence.push({
+        name: pose.name,
+        startTime: poseStartTime,
+        endTime: poseStartTime + poseDurationSeconds,
+        durationSeconds: poseDurationSeconds
+      });
+      poseStartTime += poseDurationSeconds;
     } else {
       sequence.push({
         name: `${pose.name} (Right)`,
+        startTime: poseStartTime,
+        endTime: poseStartTime + halfPoseDurationSeconds,
         durationSeconds: halfPoseDurationSeconds
       });
+      poseStartTime += halfPoseDurationSeconds;
       sequence.push({
         name: `${pose.name} (Left)`,
+        startTime: poseStartTime,
+        endTime: poseStartTime + halfPoseDurationSeconds,
         durationSeconds: halfPoseDurationSeconds
       });
+      poseStartTime += halfPoseDurationSeconds;
     }
   }
   return sequence;
