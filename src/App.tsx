@@ -3,33 +3,21 @@ import useSound from "use-sound";
 import CurrentPose from "./CurrentPose";
 import Timer from "./Timer";
 import { SequencePose, Sequence } from "./types";
-import { generateSequence } from "./util";
+import { generateSequence, useTimer } from "./util";
 import "./App.css";
 const beep = require("./sounds/beep.mp3");
 
-const SEQUENCE_DURATION_MINUTES = 20;
+const SEQUENCE_DURATION_MINUTES = 2;
 
 function App() {
-  const durationSeconds = 180;
-
-  const [isRunning, setIsRunning] = useState(false);
-  const [currentPose, setCurrentPose] = useState<SequencePose | void>(
-    undefined
+  const [elapsedSeconds, isRunning, startPause, resetTimer] = useTimer(
+    SEQUENCE_DURATION_MINUTES * 60
   );
   const [sequence, setSequence] = useState<Sequence>(
     generateSequence(SEQUENCE_DURATION_MINUTES)
   );
-  const [elapsedSeconds, setElapsedSeconds] = useState(0);
+  const [currentPose, setCurrentPose] = useState<SequencePose>(sequence[0]);
   const [play] = useSound(beep);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      if (isRunning && elapsedSeconds < durationSeconds) {
-        setElapsedSeconds(elapsedSeconds + 1);
-      }
-    }, 1000);
-    return () => clearInterval(interval);
-  }, [elapsedSeconds, durationSeconds, isRunning]);
 
   useEffect(() => {
     if (isRunning && sequence) {
@@ -44,12 +32,14 @@ function App() {
     }
   }, [elapsedSeconds, isRunning, sequence, currentPose, play]);
 
-  const reset = useCallback(() => {
+  const nextSequence = useCallback(() => {
     setSequence(generateSequence(SEQUENCE_DURATION_MINUTES));
-    setCurrentPose(undefined);
-    setElapsedSeconds(0);
-    setIsRunning(false);
   }, []);
+
+  const reset = useCallback(() => {
+    setCurrentPose(sequence[0]);
+    resetTimer();
+  }, [sequence]);
 
   return (
     <div className="App">
@@ -62,10 +52,11 @@ function App() {
           ))}
         </div>
       ) : null}
+      <button onClick={nextSequence}>Generate New Sequence</button>
       {isRunning ? (
-        <button onClick={() => setIsRunning(false)}>Pause</button>
+        <button onClick={startPause}>Pause</button>
       ) : (
-        <button onClick={() => setIsRunning(true)}>Start</button>
+        <button onClick={startPause}>Start</button>
       )}
       <button onClick={reset}>Reset</button>
       {currentPose ? <CurrentPose pose={currentPose} /> : null}

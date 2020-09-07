@@ -1,4 +1,5 @@
 import groupBy from "lodash.groupby";
+import { useCallback, useEffect, useState } from "react";
 import yinYogaPoses from "./yinYogaPoses";
 import { Pose, Sequence } from "./types";
 
@@ -68,4 +69,29 @@ export function generateSequence(totalDurationMinutes: number): Sequence {
     }
   }
   return sequence;
+}
+
+export function useTimer(durationSeconds: number) {
+  const [isRunning, setIsRunning] = useState(false);
+  const [elapsedSeconds, setElapsedSeconds] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      if (isRunning && elapsedSeconds < durationSeconds) {
+        setElapsedSeconds(elapsedSeconds + 1);
+      }
+    }, 1000);
+    return () => clearInterval(interval);
+  }, [elapsedSeconds, durationSeconds, isRunning]);
+
+  const resetTimer = useCallback(() => {
+    setIsRunning(false);
+    setElapsedSeconds(0);
+  }, []);
+
+  const startPause = useCallback(() => {
+    setIsRunning(!isRunning);
+  }, [isRunning]);
+
+  return [elapsedSeconds, isRunning, startPause, resetTimer] as const;
 }
