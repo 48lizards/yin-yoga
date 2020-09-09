@@ -5,7 +5,7 @@ export default function CurrentPose({ pose }: { pose: SequencePose }) {
   return (
     <div>
       <span>
-        {pose.name} - {pose.durationSeconds / 60} min
+        {pose.name} - {pose.durationSeconds} sec
       </span>
     </div>
   );

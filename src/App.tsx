@@ -7,7 +7,7 @@ import { generateSequence, useTimer } from "./util";
 import "./App.css";
 const beep = require("./sounds/beep.mp3");
 
-const SEQUENCE_DURATION_MINUTES = 2;
+const SEQUENCE_DURATION_MINUTES = 0.5;
 
 function App() {
   const [elapsedSeconds, isRunning, startPause, resetTimer] = useTimer(
@@ -17,20 +17,28 @@ function App() {
     generateSequence(SEQUENCE_DURATION_MINUTES)
   );
   const [currentPose, setCurrentPose] = useState<SequencePose>(sequence[0]);
-  const [play] = useSound(beep);
+  const [playBeep] = useSound(beep);
 
   useEffect(() => {
-    if (isRunning && sequence) {
-      for (const pose of sequence) {
-        if (elapsedSeconds >= pose.startTime && elapsedSeconds < pose.endTime) {
-          if (pose !== currentPose) {
-            setCurrentPose(pose);
-            play();
-          }
+    if (isRunning) {
+      for (let i = 0; i < sequence.length; i++) {
+        const pose = sequence[i];
+        if (
+          pose !== currentPose &&
+          elapsedSeconds >= pose.startTime &&
+          elapsedSeconds < pose.endTime
+        ) {
+          setCurrentPose(pose);
+          playBeep();
+        } else if (
+          i === sequence.length - 1 &&
+          elapsedSeconds >= pose.endTime
+        ) {
+          playBeep();
         }
       }
     }
-  }, [elapsedSeconds, isRunning, sequence, currentPose, play]);
+  }, [elapsedSeconds, isRunning, sequence, currentPose, playBeep]);
 
   const nextSequence = useCallback(() => {
     setSequence(generateSequence(SEQUENCE_DURATION_MINUTES));
