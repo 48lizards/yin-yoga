@@ -7,7 +7,7 @@ import { generateSequence, useTimer } from "./util";
 import "./App.css";
 const beep = require("./sounds/beep.mp3");
 
-const SEQUENCE_DURATION_MINUTES = 0.5;
+const SEQUENCE_DURATION_MINUTES = 18;
 
 function App() {
   const [elapsedSeconds, isRunning, startPause, resetTimer] = useTimer(
