@@ -2,16 +2,16 @@ import { Pose, PoseArchetype } from "./types";
 const { Dog, Shoelace, Saddle, Caterpillar, Dragonfly, Twist } = PoseArchetype;
 
 const yinYogaPoses: Array<Pose> = [
-  // {
-  //   archetype: Dog,
-  //   name: "Puppy Dog",
-  //   isSymmetrical: true
-  // },
-  // {
-  //   archetype: Dog,
-  //   name: "Child's Pose",
-  //   isSymmetrical: true
-  // },
+  {
+    archetype: Dog,
+    name: "Puppy Dog",
+    isSymmetrical: true
+  },
+  {
+    archetype: Dog,
+    name: "Child's Pose",
+    isSymmetrical: true
+  },
   {
     archetype: Shoelace,
     name: "Shoelace",
@@ -42,11 +42,11 @@ const yinYogaPoses: Array<Pose> = [
     name: "Sphinx",
     isSymmetrical: true
   },
-  {
-    archetype: Saddle,
-    name: "Seal",
-    isSymmetrical: true
-  },
+  // {
+  //   archetype: Saddle,
+  //   name: "Seal",
+  //   isSymmetrical: true
+  // },
   {
     archetype: Saddle,
     name: "Saddle",
@@ -62,11 +62,11 @@ const yinYogaPoses: Array<Pose> = [
     name: "Dragon",
     isSymmetrical: false
   },
-  {
-    archetype: Saddle,
-    name: "Bridge",
-    isSymmetrical: true
-  },
+  // {
+  //   archetype: Saddle,
+  //   name: "Bridge",
+  //   isSymmetrical: true
+  // },
   {
     archetype: Caterpillar,
     name: "Caterpillar",

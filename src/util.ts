@@ -14,6 +14,12 @@ export function elapsedSecondsToTimerTime(elapsedSeconds: number): string {
   return `${asTwoDigits(minutes)}:${asTwoDigits(seconds)}`;
 }
 
+export function secondsToTimerTime(totalSeconds: number) {
+  const minutes = Math.floor(totalSeconds / 60);
+  const seconds = totalSeconds % 60;
+  return `${minutes}:${asTwoDigits(seconds)}`;
+}
+
 function randomInteger(max: number): number {
   return Math.floor(Math.random() * (max + 1));
 }

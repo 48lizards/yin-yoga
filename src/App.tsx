@@ -1,13 +1,42 @@
 import React, { useState, useEffect, useCallback } from "react";
+import styled from "styled-components";
 import useSound from "use-sound";
-import CurrentPose from "./CurrentPose";
 import Timer from "./Timer";
-import { SequencePose, Sequence } from "./types";
-import { generateSequence, useTimer } from "./util";
+import { Sequence } from "./types";
+import { generateSequence, secondsToTimerTime, useTimer } from "./util";
 import "./App.css";
-const beep = require("./sounds/beep.mp3");
+const beep = require("./assets/beep.mp3");
+const background = require("./assets/background.jpg");
 
 const SEQUENCE_DURATION_MINUTES = 18;
+
+const Button = styled.button`
+  margin-right: 5px;
+`;
+
+const AppWrapper = styled.div`
+  text-align: center;
+  padding: 10px;
+  background-image: url(${background});
+  height: 100vh;
+`;
+
+const SequenceWrapper = styled.div`
+  margin: 10px;
+`;
+
+type PoseWrapperProps = {
+  isCurrentPose: boolean;
+  isPastPose: boolean;
+};
+
+const PoseWrapper = styled.div`
+  font-size: ${({ isCurrentPose }: PoseWrapperProps) =>
+    isCurrentPose ? "32px" : "16px"};
+  color: ${({ isPastPose }: PoseWrapperProps) =>
+    isPastPose ? "gray" : "black"};
+  line-height: 1.3;
+`;
 
 function App() {
   const [elapsedSeconds, isRunning, startPause, resetTimer] = useTimer(
@@ -16,8 +45,19 @@ function App() {
   const [sequence, setSequence] = useState<Sequence>(
     generateSequence(SEQUENCE_DURATION_MINUTES)
   );
-  const [currentPose, setCurrentPose] = useState<SequencePose>(sequence[0]);
+  const [currentPoseIndex, setCurrentPoseIndex] = useState(0);
+  const currentPose = sequence[currentPoseIndex];
   const [playBeep] = useSound(beep);
+
+  const reset = useCallback(() => {
+    setCurrentPoseIndex(0);
+    resetTimer();
+  }, [resetTimer]);
+
+  const nextSequence = useCallback(() => {
+    setSequence(generateSequence(SEQUENCE_DURATION_MINUTES));
+    reset();
+  }, [reset]);
 
   useEffect(() => {
     if (isRunning) {
@@ -28,48 +68,37 @@ function App() {
           elapsedSeconds >= pose.startTime &&
           elapsedSeconds < pose.endTime
         ) {
-          setCurrentPose(pose);
+          setCurrentPoseIndex(i);
           playBeep();
         } else if (
           i === sequence.length - 1 &&
           elapsedSeconds >= pose.endTime
         ) {
           playBeep();
+          reset();
         }
       }
     }
-  }, [elapsedSeconds, isRunning, sequence, currentPose, playBeep]);
-
-  const nextSequence = useCallback(() => {
-    setSequence(generateSequence(SEQUENCE_DURATION_MINUTES));
-  }, []);
-
-  const reset = useCallback(() => {
-    setCurrentPose(sequence[0]);
-    resetTimer();
-  }, [sequence]);
+  }, [elapsedSeconds, isRunning, sequence, currentPose, playBeep, reset]);
 
   return (
-    <div className="App">
-      {sequence ? (
-        <div>
-          {sequence.map(pose => (
-            <div key={pose.name}>
-              {pose.name} - {pose.durationSeconds} sec
-            </div>
-          ))}
-        </div>
-      ) : null}
-      <button onClick={nextSequence}>Generate New Sequence</button>
-      {isRunning ? (
-        <button onClick={startPause}>Pause</button>
-      ) : (
-        <button onClick={startPause}>Start</button>
-      )}
-      <button onClick={reset}>Reset</button>
-      {currentPose ? <CurrentPose pose={currentPose} /> : null}
+    <AppWrapper>
       <Timer elapsedSeconds={elapsedSeconds} />
-    </div>
+      <SequenceWrapper>
+        {sequence.map((pose, index) => (
+          <PoseWrapper
+            key={pose.name}
+            isCurrentPose={index === currentPoseIndex}
+            isPastPose={index < currentPoseIndex}
+          >
+            {pose.name} - {secondsToTimerTime(pose.durationSeconds)}
+          </PoseWrapper>
+        ))}
+      </SequenceWrapper>
+      <Button onClick={startPause}>{isRunning ? "Pause" : "Start"}</Button>
+      <Button onClick={reset}>Reset</Button>
+      <Button onClick={nextSequence}>Next Sequence</Button>
+    </AppWrapper>
   );
 }
 
