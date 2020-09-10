@@ -15,7 +15,8 @@ const Button = styled.button`
 `;
 
 const AppWrapper = styled.div`
-  text-align: center;
+  display: flex;
+  justify-content: space-around;
   padding: 10px;
   background-image: url(${background});
   height: 100vh;
@@ -36,6 +37,10 @@ const PoseWrapper = styled.div`
   color: ${({ isPastPose }: PoseWrapperProps) =>
     isPastPose ? "gray" : "black"};
   line-height: 1.3;
+`;
+
+const ImageWrapper = styled.div`
+  margin-top: 25px;
 `;
 
 function App() {
@@ -83,21 +88,26 @@ function App() {
 
   return (
     <AppWrapper>
-      <Timer elapsedSeconds={elapsedSeconds} />
-      <SequenceWrapper>
-        {sequence.map((pose, index) => (
-          <PoseWrapper
-            key={pose.name}
-            isCurrentPose={index === currentPoseIndex}
-            isPastPose={index < currentPoseIndex}
-          >
-            {pose.name} - {secondsToTimerTime(pose.durationSeconds)}
-          </PoseWrapper>
-        ))}
-      </SequenceWrapper>
-      <Button onClick={startPause}>{isRunning ? "Pause" : "Start"}</Button>
-      <Button onClick={reset}>Reset</Button>
-      <Button onClick={nextSequence}>Next Sequence</Button>
+      <div>
+        <Timer elapsedSeconds={elapsedSeconds} />
+        <SequenceWrapper>
+          {sequence.map((pose, index) => (
+            <PoseWrapper
+              key={pose.name}
+              isCurrentPose={index === currentPoseIndex}
+              isPastPose={index < currentPoseIndex}
+            >
+              {pose.name} - {secondsToTimerTime(pose.durationSeconds)}
+            </PoseWrapper>
+          ))}
+        </SequenceWrapper>
+        <Button onClick={startPause}>{isRunning ? "Pause" : "Start"}</Button>
+        <Button onClick={reset}>Reset</Button>
+        <Button onClick={nextSequence}>Next Sequence</Button>
+      </div>
+      <ImageWrapper>
+        <img src={currentPose.imageUrl} width={350} />
+      </ImageWrapper>
     </AppWrapper>
   );
 }

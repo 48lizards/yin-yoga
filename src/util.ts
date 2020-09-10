@@ -52,6 +52,7 @@ export function generateSequence(totalDurationMinutes: number): Sequence {
     if (pose.isSymmetrical) {
       sequence.push({
         name: pose.name,
+        imageUrl: pose.imageUrl,
         startTime: poseStartTime,
         endTime: poseStartTime + poseDurationSeconds,
         durationSeconds: poseDurationSeconds
@@ -60,6 +61,7 @@ export function generateSequence(totalDurationMinutes: number): Sequence {
     } else {
       sequence.push({
         name: `${pose.name} (Right)`,
+        imageUrl: pose.imageUrl,
         startTime: poseStartTime,
         endTime: poseStartTime + halfPoseDurationSeconds,
         durationSeconds: halfPoseDurationSeconds
@@ -67,6 +69,7 @@ export function generateSequence(totalDurationMinutes: number): Sequence {
       poseStartTime += halfPoseDurationSeconds;
       sequence.push({
         name: `${pose.name} (Left)`,
+        imageUrl: pose.imageUrl,
         startTime: poseStartTime,
         endTime: poseStartTime + halfPoseDurationSeconds,
         durationSeconds: halfPoseDurationSeconds

@@ -9,12 +9,14 @@ export enum PoseArchetype {
 
 export type Pose = {
   name: string;
+  imageUrl: string;
   archetype: PoseArchetype;
   isSymmetrical: boolean;
 };
 
 export type SequencePose = {
   name: string;
+  imageUrl: string;
   startTime: number;
   endTime: number;
   durationSeconds: number;
