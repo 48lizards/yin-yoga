@@ -1,10 +1,10 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "5df889cc777639ea99bb7853b4f78a7e",
+    "revision": "4a806c95d89a34318fb006b1ed155f2a",
     "url": "/yin-yoga/index.html"
   },
   {
-    "revision": "dd132826e8ca9e618d1a",
+    "revision": "08a6b87986dcfaa849fc",
     "url": "/yin-yoga/static/css/main.27fd15f6.chunk.css"
   },
   {
@@ -24,8 +24,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/yin-yoga/static/js/3.02dddf2b.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "dd132826e8ca9e618d1a",
-    "url": "/yin-yoga/static/js/main.784ec24a.chunk.js"
+    "revision": "08a6b87986dcfaa849fc",
+    "url": "/yin-yoga/static/js/main.d8f9bc41.chunk.js"
   },
   {
     "revision": "21fa2db9151d488fa029",
