@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { elapsedSecondsToTimerTime } from "./util";
 
 const TimerWrapper = styled.div`
-  font-size: 96px;
+  font-size: 128px;
   font-family: "Roboto Mono", monospace;
 `;
 

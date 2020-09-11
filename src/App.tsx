@@ -11,7 +11,9 @@ const background = require("./assets/background.jpg");
 const SEQUENCE_DURATION_MINUTES = 18;
 
 const Button = styled.button`
-  margin-right: 5px;
+  margin-right: 8px;
+  font-size: 16px;
+  padding: 5px;
 `;
 
 const AppWrapper = styled.div`
@@ -33,7 +35,7 @@ type PoseWrapperProps = {
 
 const PoseWrapper = styled.div`
   font-size: ${({ isCurrentPose }: PoseWrapperProps) =>
-    isCurrentPose ? "32px" : "16px"};
+    isCurrentPose ? "48px" : "24px"};
   color: ${({ isPastPose }: PoseWrapperProps) =>
     isPastPose ? "gray" : "black"};
   line-height: 1.3;
@@ -41,6 +43,10 @@ const PoseWrapper = styled.div`
 
 const ImageWrapper = styled.div`
   margin-top: 25px;
+`;
+
+const ButtonsWrapper = styled.div`
+  margin-left: 10px;
 `;
 
 function App() {
@@ -102,13 +108,17 @@ function App() {
               </PoseWrapper>
             ))}
           </SequenceWrapper>
-          <Button onClick={startPause}>{isRunning ? "Pause" : "Start"}</Button>
-          <Button onClick={reset}>Reset</Button>
-          <Button onClick={nextSequence}>Next Sequence</Button>
+          <ButtonsWrapper>
+            <Button onClick={startPause}>
+              {isRunning ? "Pause" : "Start"}
+            </Button>
+            <Button onClick={reset}>Reset</Button>
+            <Button onClick={nextSequence}>Next Sequence</Button>
+          </ButtonsWrapper>
         </div>
       </div>
       <ImageWrapper>
-        <img src={currentPose.imageUrl} alt={currentPose.name} width={350} />
+        <img src={currentPose.imageUrl} alt={currentPose.name} width={550} />
       </ImageWrapper>
     </AppWrapper>
   );
