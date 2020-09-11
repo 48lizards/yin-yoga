@@ -1,0 +1,27 @@
+{
+  "files": {
+    "main.css": "/yin-yoga/static/css/main.27fd15f6.chunk.css",
+    "main.js": "/yin-yoga/static/js/main.784ec24a.chunk.js",
+    "main.js.map": "/yin-yoga/static/js/main.784ec24a.chunk.js.map",
+    "runtime-main.js": "/yin-yoga/static/js/runtime-main.785895b7.js",
+    "runtime-main.js.map": "/yin-yoga/static/js/runtime-main.785895b7.js.map",
+    "static/js/2.a1f4bd85.chunk.js": "/yin-yoga/static/js/2.a1f4bd85.chunk.js",
+    "static/js/2.a1f4bd85.chunk.js.map": "/yin-yoga/static/js/2.a1f4bd85.chunk.js.map",
+    "static/js/3.02dddf2b.chunk.js": "/yin-yoga/static/js/3.02dddf2b.chunk.js",
+    "static/js/3.02dddf2b.chunk.js.map": "/yin-yoga/static/js/3.02dddf2b.chunk.js.map",
+    "index.html": "/yin-yoga/index.html",
+    "precache-manifest.da8f238cd93127e6e4599dd82e8caa77.js": "/yin-yoga/precache-manifest.da8f238cd93127e6e4599dd82e8caa77.js",
+    "service-worker.js": "/yin-yoga/service-worker.js",
+    "static/css/main.27fd15f6.chunk.css.map": "/yin-yoga/static/css/main.27fd15f6.chunk.css.map",
+    "static/js/2.a1f4bd85.chunk.js.LICENSE.txt": "/yin-yoga/static/js/2.a1f4bd85.chunk.js.LICENSE.txt",
+    "static/js/3.02dddf2b.chunk.js.LICENSE.txt": "/yin-yoga/static/js/3.02dddf2b.chunk.js.LICENSE.txt",
+    "static/media/background.jpg": "/yin-yoga/static/media/background.046393f2.jpg",
+    "static/media/beep.mp3": "/yin-yoga/static/media/beep.66dd8682.mp3"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.785895b7.js",
+    "static/js/2.a1f4bd85.chunk.js",
+    "static/css/main.27fd15f6.chunk.css",
+    "static/js/main.784ec24a.chunk.js"
+  ]
+}
