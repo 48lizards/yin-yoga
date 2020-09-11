@@ -34,7 +34,7 @@ const yinYogaPoses: Array<Pose> = [
     archetype: Shoelace,
     name: "Pigeon",
     isSymmetrical: false,
-    imageUrl: "https://i.ibb.co/FBvfmsm/Pigeon.png"
+    imageUrl: "https://i.ibb.co/Y06Xk72/Pigeon.png"
   },
   {
     archetype: Shoelace,
@@ -82,7 +82,7 @@ const yinYogaPoses: Array<Pose> = [
     archetype: Saddle,
     name: "Half Saddle",
     isSymmetrical: false,
-    imageUrl: "https://i.ibb.co/RhqDv6K/Half-Saddle.png"
+    imageUrl: "https://i.ibb.co/Dg9Jhgx/Half-Saddle.png"
   },
   {
     archetype: Saddle,
@@ -113,19 +113,19 @@ const yinYogaPoses: Array<Pose> = [
     archetype: Caterpillar,
     name: "Half Butterfly",
     isSymmetrical: false,
-    imageUrl: "https://i.ibb.co/kSjW1Rw/Half-Butterfly.png"
+    imageUrl: "https://i.ibb.co/H7rbyrm/Half-Butterfly.png"
   },
   {
     archetype: Caterpillar,
     name: "Half Shoelace",
     isSymmetrical: false,
-    imageUrl: "https://i.ibb.co/JjBL2yt/Half-Shoelace.png"
+    imageUrl: "https://i.ibb.co/Nr2Cr6G/Half-Shoelace.png"
   },
   {
     archetype: Caterpillar,
     name: "Half Frog",
     isSymmetrical: false,
-    imageUrl: "https://i.ibb.co/61MVCnV/Half-Frog.png"
+    imageUrl: "https://i.ibb.co/LYxv0tC/Half-Frog.png"
   },
   {
     archetype: Caterpillar,

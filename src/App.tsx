@@ -89,24 +89,26 @@ function App() {
   return (
     <AppWrapper>
       <div>
-        <Timer elapsedSeconds={elapsedSeconds} />
-        <SequenceWrapper>
-          {sequence.map((pose, index) => (
-            <PoseWrapper
-              key={pose.name}
-              isCurrentPose={index === currentPoseIndex}
-              isPastPose={index < currentPoseIndex}
-            >
-              {pose.name} - {secondsToTimerTime(pose.durationSeconds)}
-            </PoseWrapper>
-          ))}
-        </SequenceWrapper>
-        <Button onClick={startPause}>{isRunning ? "Pause" : "Start"}</Button>
-        <Button onClick={reset}>Reset</Button>
-        <Button onClick={nextSequence}>Next Sequence</Button>
+        <div>
+          <Timer elapsedSeconds={elapsedSeconds} />
+          <SequenceWrapper>
+            {sequence.map((pose, index) => (
+              <PoseWrapper
+                key={pose.name}
+                isCurrentPose={index === currentPoseIndex}
+                isPastPose={index < currentPoseIndex}
+              >
+                {pose.name} - {secondsToTimerTime(pose.durationSeconds)}
+              </PoseWrapper>
+            ))}
+          </SequenceWrapper>
+          <Button onClick={startPause}>{isRunning ? "Pause" : "Start"}</Button>
+          <Button onClick={reset}>Reset</Button>
+          <Button onClick={nextSequence}>Next Sequence</Button>
+        </div>
       </div>
       <ImageWrapper>
-        <img src={currentPose.imageUrl} width={350} />
+        <img src={currentPose.imageUrl} alt={currentPose.name} width={350} />
       </ImageWrapper>
     </AppWrapper>
   );

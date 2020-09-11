@@ -39,6 +39,19 @@ function pickOneRandomPoseFromEachArchetype(allPoses: Pose[]) {
   return poses;
 }
 
+class SequencePose {
+  constructor(
+    public name: string,
+    public imageUrl: string,
+    public startTime: number,
+    public durationSeconds: number
+  ) {}
+
+  get endTime(): number {
+    return this.startTime + this.durationSeconds;
+  }
+}
+
 export function generateSequence(totalDurationMinutes: number): Sequence {
   const poses = pickOneRandomPoseFromEachArchetype(yinYogaPoses);
 
@@ -50,30 +63,33 @@ export function generateSequence(totalDurationMinutes: number): Sequence {
   let poseStartTime = 0;
   for (const pose of poses) {
     if (pose.isSymmetrical) {
-      sequence.push({
-        name: pose.name,
-        imageUrl: pose.imageUrl,
-        startTime: poseStartTime,
-        endTime: poseStartTime + poseDurationSeconds,
-        durationSeconds: poseDurationSeconds
-      });
+      sequence.push(
+        new SequencePose(
+          pose.name,
+          pose.imageUrl,
+          poseStartTime,
+          poseDurationSeconds
+        )
+      );
       poseStartTime += poseDurationSeconds;
     } else {
-      sequence.push({
-        name: `${pose.name} (Right)`,
-        imageUrl: pose.imageUrl,
-        startTime: poseStartTime,
-        endTime: poseStartTime + halfPoseDurationSeconds,
-        durationSeconds: halfPoseDurationSeconds
-      });
+      sequence.push(
+        new SequencePose(
+          `${pose.name} (Right)`,
+          pose.imageUrl,
+          poseStartTime,
+          halfPoseDurationSeconds
+        )
+      );
       poseStartTime += halfPoseDurationSeconds;
-      sequence.push({
-        name: `${pose.name} (Left)`,
-        imageUrl: pose.imageUrl,
-        startTime: poseStartTime,
-        endTime: poseStartTime + halfPoseDurationSeconds,
-        durationSeconds: halfPoseDurationSeconds
-      });
+      sequence.push(
+        new SequencePose(
+          `${pose.name} (Left)`,
+          pose.imageUrl,
+          poseStartTime,
+          halfPoseDurationSeconds
+        )
+      );
       poseStartTime += halfPoseDurationSeconds;
     }
   }
