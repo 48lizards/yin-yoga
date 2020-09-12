@@ -8,7 +8,7 @@ import "./App.css";
 const beep = require("./assets/beep.mp3");
 const background = require("./assets/background.jpg");
 
-const SEQUENCE_DURATION_MINUTES = 18;
+const SEQUENCE_DURATION_MINUTES = 30;
 
 const Button = styled.button`
   margin-right: 8px;
@@ -50,9 +50,7 @@ const ButtonsWrapper = styled.div`
 `;
 
 function App() {
-  const [elapsedSeconds, isRunning, startPause, resetTimer] = useTimer(
-    SEQUENCE_DURATION_MINUTES * 60
-  );
+  const [elapsedSeconds, isRunning, startPause, resetTimer] = useTimer();
   const [sequence, setSequence] = useState<Sequence>(
     generateSequence(SEQUENCE_DURATION_MINUTES)
   );

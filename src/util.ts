@@ -1,7 +1,8 @@
 import groupBy from "lodash.groupby";
 import { useCallback, useEffect, useState } from "react";
 import yinYogaPoses from "./yinYogaPoses";
-import { Pose, Sequence } from "./types";
+import { Pose, PoseArchetype, Sequence } from "./types";
+const { Shoelace, Saddle, Caterpillar, Dragonfly } = PoseArchetype;
 
 function asTwoDigits(integer: number): string {
   const integerString = `${integer}`;
@@ -35,6 +36,20 @@ function pickOneRandomPoseFromEachArchetype(allPoses: Pose[]) {
     const posesForArchetype = posesByArchetype[archetype];
     const pose = randomElement(posesForArchetype);
     poses.push(pose);
+    if (
+      [
+        Shoelace.toString(),
+        Saddle.toString(),
+        Caterpillar.toString(),
+        Dragonfly.toString(),
+      ].includes(archetype)
+    ) {
+      let extraPose = randomElement(posesForArchetype);
+      while (extraPose === pose) {
+        extraPose = randomElement(posesForArchetype);
+      }
+      poses.push(extraPose);
+    }
   }
   return poses;
 }
@@ -55,9 +70,11 @@ class SequencePose {
 export function generateSequence(totalDurationMinutes: number): Sequence {
   const poses = pickOneRandomPoseFromEachArchetype(yinYogaPoses);
 
-  const totalDurationSeconds = totalDurationMinutes * 60;
-  const poseDurationSeconds = totalDurationSeconds / poses.length;
-  const halfPoseDurationSeconds = poseDurationSeconds / 2;
+  // const totalDurationSeconds = totalDurationMinutes * 60;
+  // const poseDurationSeconds = totalDurationSeconds / poses.length;
+  // const halfPoseDurationSeconds = poseDurationSeconds / 2;
+  const poseDurationSeconds = 180;
+  const halfPoseDurationSeconds = poseDurationSeconds;
 
   const sequence = [];
   let poseStartTime = 0;
@@ -96,18 +113,18 @@ export function generateSequence(totalDurationMinutes: number): Sequence {
   return sequence;
 }
 
-export function useTimer(durationSeconds: number) {
+export function useTimer() {
   const [isRunning, setIsRunning] = useState(false);
   const [elapsedSeconds, setElapsedSeconds] = useState(0);
 
   useEffect(() => {
     const interval = setInterval(() => {
-      if (isRunning && elapsedSeconds < durationSeconds) {
+      if (isRunning) {
         setElapsedSeconds(elapsedSeconds + 1);
       }
     }, 1000);
     return () => clearInterval(interval);
-  }, [elapsedSeconds, durationSeconds, isRunning]);
+  }, [elapsedSeconds, isRunning]);
 
   const resetTimer = useCallback(() => {
     setIsRunning(false);
