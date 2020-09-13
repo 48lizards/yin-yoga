@@ -73,8 +73,8 @@ export function generateSequence(totalDurationMinutes: number): Sequence {
   // const totalDurationSeconds = totalDurationMinutes * 60;
   // const poseDurationSeconds = totalDurationSeconds / poses.length;
   // const halfPoseDurationSeconds = poseDurationSeconds / 2;
-  const poseDurationSeconds = 180;
-  const halfPoseDurationSeconds = poseDurationSeconds;
+  const poseDurationSeconds = 300;
+  const halfPoseDurationSeconds = 240;
 
   const sequence = [];
   let poseStartTime = 0;
