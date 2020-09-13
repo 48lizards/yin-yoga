@@ -48,7 +48,7 @@ function pickOneRandomPoseFromEachArchetype(allPoses: Pose[]) {
       while (extraPose === pose) {
         extraPose = randomElement(posesForArchetype);
       }
-      poses.push(extraPose);
+      // poses.push(extraPose);
     }
   }
   return poses;
@@ -73,8 +73,8 @@ export function generateSequence(totalDurationMinutes: number): Sequence {
   // const totalDurationSeconds = totalDurationMinutes * 60;
   // const poseDurationSeconds = totalDurationSeconds / poses.length;
   // const halfPoseDurationSeconds = poseDurationSeconds / 2;
-  const poseDurationSeconds = 300;
-  const halfPoseDurationSeconds = 240;
+  const poseDurationSeconds = 3;
+  const halfPoseDurationSeconds = 2;
 
   const sequence = [];
   let poseStartTime = 0;
@@ -111,29 +111,4 @@ export function generateSequence(totalDurationMinutes: number): Sequence {
     }
   }
   return sequence;
-}
-
-export function useTimer() {
-  const [isRunning, setIsRunning] = useState(false);
-  const [elapsedSeconds, setElapsedSeconds] = useState(0);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      if (isRunning) {
-        setElapsedSeconds(elapsedSeconds + 1);
-      }
-    }, 1000);
-    return () => clearInterval(interval);
-  }, [elapsedSeconds, isRunning]);
-
-  const resetTimer = useCallback(() => {
-    setIsRunning(false);
-    setElapsedSeconds(0);
-  }, []);
-
-  const startPause = useCallback(() => {
-    setIsRunning(!isRunning);
-  }, [isRunning]);
-
-  return [elapsedSeconds, isRunning, startPause, resetTimer] as const;
 }

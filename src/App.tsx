@@ -1,64 +1,13 @@
 import React, { useState, useEffect, useCallback } from "react";
 import styled from "styled-components";
-import { useMachine } from "@xstate/react";
-import { Machine, assign, send } from "xstate";
 import useSound from "use-sound";
 import Timer from "./Timer";
 import { Sequence } from "./types";
-import { generateSequence, secondsToTimerTime, useTimer } from "./util";
+import { generateSequence, secondsToTimerTime } from "./util";
+import useTimer from "./useTimer";
 import "./App.css";
 const beep = require("./assets/beep.mp3");
 const background = require("./assets/background.jpg");
-
-type TimerContext = {
-  elapsedSeconds: number;
-};
-
-const runTimerCallbackHandler = () => (
-  callback: (eventType: string) => void
-) => {
-  setInterval(() => {
-    callback("TICK");
-  }, 1000);
-};
-
-const timerMachine = Machine({
-  id: "timer",
-  initial: "paused",
-  context: {
-    elapsedSeconds: 0,
-  },
-  states: {
-    running: {
-      invoke: {
-        id: "runTimer",
-        src: runTimerCallbackHandler,
-      },
-      on: {
-        TOGGLE_RUNNING: "paused",
-        TICK: {
-          actions: assign({
-            elapsedSeconds: (context: TimerContext) =>
-              context.elapsedSeconds + 1,
-          }),
-        },
-      },
-    },
-    paused: {
-      on: {
-        TOGGLE_RUNNING: "running",
-      },
-    },
-  },
-  on: {
-    RESET: {
-      target: "paused",
-      actions: assign({
-        elapsedSeconds: 0,
-      }),
-    },
-  },
-});
 
 const SEQUENCE_DURATION_MINUTES = 30;
 
@@ -102,10 +51,7 @@ const ButtonsWrapper = styled.div`
 `;
 
 function App() {
-  // const [elapsedSeconds, isRunning, startPause, resetTimer] = useTimer();
-  const [timerState, sendTimer] = useMachine(timerMachine);
-  const { elapsedSeconds } = timerState.context;
-  const isRunning = timerState.value === "running";
+  const [elapsedSeconds, isRunning, startPause, resetTimer] = useTimer();
 
   const [sequence, setSequence] = useState<Sequence>(
     generateSequence(SEQUENCE_DURATION_MINUTES)
@@ -116,8 +62,8 @@ function App() {
 
   const reset = useCallback(() => {
     setCurrentPoseIndex(0);
-    sendTimer("RESET");
-  }, [sendTimer]);
+    resetTimer();
+  }, [resetTimer]);
 
   const nextSequence = useCallback(() => {
     setSequence(generateSequence(SEQUENCE_DURATION_MINUTES));
@@ -163,7 +109,7 @@ function App() {
             ))}
           </SequenceWrapper>
           <ButtonsWrapper>
-            <Button onClick={() => sendTimer("TOGGLE_RUNNING")}>
+            <Button onClick={startPause}>
               {isRunning ? "Pause" : "Start"}
             </Button>
             <Button onClick={reset}>Reset</Button>
