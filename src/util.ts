@@ -1,5 +1,4 @@
 import groupBy from "lodash.groupby";
-import { useCallback, useEffect, useState } from "react";
 import yinYogaPoses from "./yinYogaPoses";
 import { Pose, PoseArchetype, Sequence } from "./types";
 const { Shoelace, Saddle, Caterpillar, Dragonfly } = PoseArchetype;
@@ -12,6 +11,16 @@ function asTwoDigits(integer: number): string {
 export function elapsedSecondsToTimerTime(elapsedSeconds: number): string {
   const minutes = Math.floor(elapsedSeconds / 60);
   const seconds = elapsedSeconds % 60;
+  return `${asTwoDigits(minutes)}:${asTwoDigits(seconds)}`;
+}
+
+export function elapsedSecondsToRemainingTimerTime(
+  elapsedSeconds: number,
+  totalDurationSeconds: number
+): string {
+  const remainingSeconds = totalDurationSeconds - elapsedSeconds;
+  const minutes = Math.floor(remainingSeconds / 60);
+  const seconds = remainingSeconds % 60;
   return `${asTwoDigits(minutes)}:${asTwoDigits(seconds)}`;
 }
 
@@ -67,14 +76,19 @@ class SequencePose {
   }
 }
 
-export function generateSequence(totalDurationMinutes: number): Sequence {
-  const poses = pickOneRandomPoseFromEachArchetype(yinYogaPoses);
+export function pickPoses(): Pose[] {
+  return pickOneRandomPoseFromEachArchetype(yinYogaPoses);
+}
 
+export function generateSequence(
+  poses: Pose[],
+  poseDurationSeconds: number
+): Sequence {
   // const totalDurationSeconds = totalDurationMinutes * 60;
   // const poseDurationSeconds = totalDurationSeconds / poses.length;
   // const halfPoseDurationSeconds = poseDurationSeconds / 2;
-  const poseDurationSeconds = 3;
-  const halfPoseDurationSeconds = 2;
+  // const poseDurationSeconds = 240;
+  const halfPoseDurationSeconds = poseDurationSeconds;
 
   const sequence = [];
   let poseStartTime = 0;

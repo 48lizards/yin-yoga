@@ -3,13 +3,10 @@ import styled from "styled-components";
 import useSound from "use-sound";
 import Timer from "./Timer";
 import { Sequence } from "./types";
-import { generateSequence, secondsToTimerTime } from "./util";
+import { generateSequence, pickPoses } from "./util";
 import useTimer from "./useTimer";
 import "./App.css";
 const beep = require("./assets/beep.mp3");
-const background = require("./assets/background.jpg");
-
-const SEQUENCE_DURATION_MINUTES = 30;
 
 const Button = styled.button`
   margin-right: 8px;
@@ -18,15 +15,19 @@ const Button = styled.button`
 `;
 
 const AppWrapper = styled.div`
-  display: flex;
-  justify-content: space-around;
   padding: 10px;
-  background-image: url(${background});
+  background-color: #ddeeb6;
   height: 100vh;
 `;
 
 const SequenceWrapper = styled.div`
   margin: 10px;
+  text-align: right;
+`;
+
+const SequenceAndImageWrapper = styled.div`
+  display: flex;
+  justify-content: center;
 `;
 
 type PoseWrapperProps = {
@@ -42,23 +43,60 @@ const PoseWrapper = styled.div`
   line-height: 1.3;
 `;
 
+const TimerWrapper = styled.div`
+  text-align: center;
+`;
+
 const ImageWrapper = styled.div`
-  margin-top: 25px;
+  margin: 25px;
 `;
 
 const ButtonsWrapper = styled.div`
   margin-left: 10px;
 `;
 
+const SettingsWrapper = styled.span`
+  margin: 10px;
+`;
+
+const ContentWrapper = styled.div`
+  width: 100%;
+`;
+
+const Label = styled.label`
+  margin-right: 6px;
+`;
+
+const Select = styled.select``;
+
+function useSelect(
+  initialValue: string
+): [string, React.ChangeEventHandler<HTMLSelectElement>] {
+  const [value, setValue] = useState(initialValue);
+
+  function onChange(event: React.ChangeEvent<HTMLSelectElement>): void {
+    setValue(event.target.value);
+  }
+
+  return [value, onChange];
+}
+
 function App() {
   const [elapsedSeconds, isRunning, startPause, resetTimer] = useTimer();
+  const [value, onChange] = useSelect("3");
+  const [poses, setPoses] = useState(pickPoses());
+  const poseDurationSeconds = parseInt(value) * 60;
 
   const [sequence, setSequence] = useState<Sequence>(
-    generateSequence(SEQUENCE_DURATION_MINUTES)
+    generateSequence(poses, poseDurationSeconds)
   );
   const [currentPoseIndex, setCurrentPoseIndex] = useState(0);
   const currentPose = sequence[currentPoseIndex];
   const [playBeep] = useSound(beep);
+  const totalDurationSeconds = sequence.reduce(
+    (duration, pose) => duration + pose.durationSeconds,
+    0
+  );
 
   const reset = useCallback(() => {
     setCurrentPoseIndex(0);
@@ -66,9 +104,16 @@ function App() {
   }, [resetTimer]);
 
   const nextSequence = useCallback(() => {
-    setSequence(generateSequence(SEQUENCE_DURATION_MINUTES));
+    const nextPoses = pickPoses();
+    setPoses(nextPoses);
+    setSequence(generateSequence(nextPoses, poseDurationSeconds));
     reset();
-  }, [reset]);
+  }, [reset, poseDurationSeconds]);
+
+  useEffect(() => {
+    setSequence(generateSequence(poses, poseDurationSeconds));
+    reset();
+  }, [poses, poseDurationSeconds, reset]);
 
   useEffect(() => {
     if (isRunning) {
@@ -94,32 +139,53 @@ function App() {
 
   return (
     <AppWrapper>
-      <div>
-        <div>
-          <Timer elapsedSeconds={elapsedSeconds} />
-          <SequenceWrapper>
-            {sequence.map((pose, index) => (
-              <PoseWrapper
-                key={pose.name}
-                isCurrentPose={index === currentPoseIndex}
-                isPastPose={index < currentPoseIndex}
-              >
-                {pose.name} - {secondsToTimerTime(pose.durationSeconds)}
-              </PoseWrapper>
-            ))}
-          </SequenceWrapper>
+      <ContentWrapper>
+        <TimerWrapper>
+          <Timer
+            elapsedSeconds={elapsedSeconds}
+            totalDurationSeconds={totalDurationSeconds}
+            isCountdown={true}
+          />
           <ButtonsWrapper>
             <Button onClick={startPause}>
               {isRunning ? "Pause" : "Start"}
             </Button>
             <Button onClick={reset}>Reset</Button>
             <Button onClick={nextSequence}>Next Sequence</Button>
+            <SettingsWrapper>
+              <Label htmlFor="poseDuration">Pose Duration</Label>
+              <Select id="poseDuration" value={value} onChange={onChange}>
+                <option value="2">2 min</option>
+                <option value="3">3 min</option>
+                <option value="4">4 min</option>
+                <option value="5">5 min</option>
+              </Select>
+            </SettingsWrapper>
           </ButtonsWrapper>
-        </div>
-      </div>
-      <ImageWrapper>
-        <img src={currentPose.imageUrl} alt={currentPose.name} width={550} />
-      </ImageWrapper>
+        </TimerWrapper>
+        <SequenceAndImageWrapper>
+          <div>
+            <SequenceWrapper>
+              {sequence.map((pose, index) => (
+                <PoseWrapper
+                  key={pose.name}
+                  isCurrentPose={index === currentPoseIndex}
+                  isPastPose={index < currentPoseIndex}
+                >
+                  {pose.name}
+                </PoseWrapper>
+              ))}
+            </SequenceWrapper>
+          </div>
+          <ImageWrapper>
+            <img
+              src={currentPose.imageUrl}
+              alt={currentPose.name}
+              width={550}
+            />
+          </ImageWrapper>
+        </SequenceAndImageWrapper>
+      </ContentWrapper>
     </AppWrapper>
   );
 }
