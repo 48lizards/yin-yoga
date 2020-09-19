@@ -7,6 +7,7 @@ import { generateSequence, pickPoses } from "./util";
 import useTimer from "./useTimer";
 import "./App.css";
 const beep = require("./assets/beep.mp3");
+const banner = require("./assets/bannerlogo.png");
 
 const Button = styled.button`
   margin-right: 8px;
@@ -44,6 +45,7 @@ const PoseWrapper = styled.div`
 
 const TimerWrapper = styled.div`
   text-align: center;
+  margin-top: -10px;
 `;
 
 const ImageWrapper = styled.div`
@@ -72,15 +74,13 @@ const Banner = styled.div`
   height: 40px;
   padding: 5px;
   width: 100%;
-  text-align: center;
+  background-image: url(${banner});
+  background-repeat: no-repeat;
+  background-size: 200px 44px;
+  background-position: center;
   background-color: black;
-  color: white;
   font-size: 24px;
   font-weight: 500;
-`;
-
-const BannerText = styled.span`
-  vertical-align: middle;
 `;
 
 function useSelect(
@@ -153,9 +153,7 @@ function App() {
 
   return (
     <AppWrapper>
-      {/* <Banner>
-        <BannerText>Yin Yoga Timer</BannerText>
-      </Banner> */}
+      <Banner />
       <ContentWrapper>
         <TimerWrapper>
           <Timer
