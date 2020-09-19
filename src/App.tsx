@@ -128,6 +128,11 @@ function App() {
 
   useEffect(() => {
     if (isRunning) {
+      if (elapsedSeconds === 0) {
+        const utterance = new SpeechSynthesisUtterance();
+        utterance.text = currentPose.name;
+        window.speechSynthesis.speak(utterance);
+      }
       for (let i = 0; i < sequence.length; i++) {
         const pose = sequence[i];
         if (
@@ -176,6 +181,7 @@ function App() {
                 <option value="3">3 min</option>
                 <option value="4">4 min</option>
                 <option value="5">5 min</option>
+                <option value="6">6 min</option>
               </Select>
             </SettingsWrapper>
           </ButtonsWrapper>
