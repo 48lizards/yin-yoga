@@ -1,12 +1,10 @@
 import React, { useState, useEffect, useCallback } from "react";
 import styled from "styled-components";
-import useSound from "use-sound";
 import Timer from "./Timer";
 import { Sequence } from "./types";
 import { generateSequence, pickPoses } from "./util";
 import useTimer from "./useTimer";
 import "./App.css";
-const beep = require("./assets/beep.mp3");
 const banner = require("./assets/bannerlogo.png");
 
 const Button = styled.button`
@@ -106,7 +104,6 @@ function App() {
   );
   const [currentPoseIndex, setCurrentPoseIndex] = useState(0);
   const currentPose = sequence[currentPoseIndex];
-  const [playBeep] = useSound(beep);
   const totalDurationSeconds = sequence.reduce(
     (duration, pose) => duration + pose.durationSeconds,
     0
@@ -138,18 +135,22 @@ function App() {
           elapsedSeconds >= pose.startTime &&
           elapsedSeconds < pose.endTime
         ) {
+          const utterance = new SpeechSynthesisUtterance();
+          utterance.text = pose.name;
+          window.speechSynthesis.speak(utterance);
           setCurrentPoseIndex(i);
-          playBeep();
         } else if (
           i === sequence.length - 1 &&
           elapsedSeconds >= pose.endTime
         ) {
-          playBeep();
+          const utterance = new SpeechSynthesisUtterance();
+          utterance.text = "shavasana";
+          window.speechSynthesis.speak(utterance);
           reset();
         }
       }
     }
-  }, [elapsedSeconds, isRunning, sequence, currentPose, playBeep, reset]);
+  }, [elapsedSeconds, isRunning, sequence, currentPose, reset]);
 
   return (
     <AppWrapper>
@@ -170,6 +171,7 @@ function App() {
             <SettingsWrapper>
               <Label htmlFor="poseDuration">Pose Duration</Label>
               <Select id="poseDuration" value={value} onChange={onChange}>
+                <option value="1">1 min</option>
                 <option value="2">2 min</option>
                 <option value="3">3 min</option>
                 <option value="4">4 min</option>
