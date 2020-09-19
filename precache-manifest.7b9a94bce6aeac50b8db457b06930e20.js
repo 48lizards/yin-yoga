@@ -1,10 +1,10 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "e1cda913c168f2877cfc9aec59a4ec0a",
+    "revision": "53e297d5356de069d8ed4536ce9b20bb",
     "url": "/yin-yoga-timer/index.html"
   },
   {
-    "revision": "6c95afe2fb749e3209b7",
+    "revision": "b169b6757242a7ac878b",
     "url": "/yin-yoga-timer/static/css/main.27fd15f6.chunk.css"
   },
   {
@@ -16,8 +16,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/yin-yoga-timer/static/js/2.ed570724.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "6c95afe2fb749e3209b7",
-    "url": "/yin-yoga-timer/static/js/main.d5a0f74b.chunk.js"
+    "revision": "b169b6757242a7ac878b",
+    "url": "/yin-yoga-timer/static/js/main.560aa033.chunk.js"
   },
   {
     "revision": "0de86395731d0eba2b76",
