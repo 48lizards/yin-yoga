@@ -7,7 +7,7 @@ import {
 
 const TimerWrapper = styled.div`
   font-size: 128px;
-  font-family: "Roboto Mono", monospace;
+  font-family: "Noto Mono", monospace;
 `;
 
 export default function Timer({

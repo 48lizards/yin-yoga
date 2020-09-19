@@ -21,6 +21,7 @@ const AppWrapper = styled.div`
 const SequenceWrapper = styled.div`
   margin: 10px;
   text-align: right;
+  font-family: "Noto Sans", sans-serif;
 `;
 
 const SequenceAndImageWrapper = styled.div`
@@ -43,7 +44,6 @@ const PoseWrapper = styled.div`
 
 const TimerWrapper = styled.div`
   text-align: center;
-  margin-top: -10px;
 `;
 
 const ImageWrapper = styled.div`
