@@ -1,11 +1,11 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "53e297d5356de069d8ed4536ce9b20bb",
+    "revision": "71b42d33f90202a77ba43cb93394c88c",
     "url": "/yin-yoga-timer/index.html"
   },
   {
-    "revision": "b169b6757242a7ac878b",
-    "url": "/yin-yoga-timer/static/css/main.27fd15f6.chunk.css"
+    "revision": "62a25026586fcb383133",
+    "url": "/yin-yoga-timer/static/css/main.7156beea.chunk.css"
   },
   {
     "revision": "a1586446274ed3b7ef5c",
@@ -16,12 +16,16 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/yin-yoga-timer/static/js/2.ed570724.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "b169b6757242a7ac878b",
-    "url": "/yin-yoga-timer/static/js/main.560aa033.chunk.js"
+    "revision": "62a25026586fcb383133",
+    "url": "/yin-yoga-timer/static/js/main.582a1a55.chunk.js"
   },
   {
     "revision": "0de86395731d0eba2b76",
     "url": "/yin-yoga-timer/static/js/runtime-main.203bd97d.js"
+  },
+  {
+    "revision": "22be61396f729519d373f6d32cf52436",
+    "url": "/yin-yoga-timer/static/media/NotoMono-Regular.22be6139.ttf"
   },
   {
     "revision": "295ce941f718b7d7e13f4cee67cea691",
