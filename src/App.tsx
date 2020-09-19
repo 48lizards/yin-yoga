@@ -74,7 +74,7 @@ const Banner = styled.div`
   width: 100%;
   background-image: url(${banner});
   background-repeat: no-repeat;
-  background-size: 200px 44px;
+  background-size: 180px 44px;
   background-position: center;
   background-color: black;
   font-size: 24px;
