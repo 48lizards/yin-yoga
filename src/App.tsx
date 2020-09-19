@@ -15,8 +15,7 @@ const Button = styled.button`
 `;
 
 const AppWrapper = styled.div`
-  padding: 10px;
-  background-color: #ddeeb6;
+  background-color: #eaf9ca;
   height: 100vh;
 `;
 
@@ -68,6 +67,21 @@ const Label = styled.label`
 `;
 
 const Select = styled.select``;
+
+const Banner = styled.div`
+  height: 40px;
+  padding: 5px;
+  width: 100%;
+  text-align: center;
+  background-color: black;
+  color: white;
+  font-size: 24px;
+  font-weight: 500;
+`;
+
+const BannerText = styled.span`
+  vertical-align: middle;
+`;
 
 function useSelect(
   initialValue: string
@@ -139,6 +153,9 @@ function App() {
 
   return (
     <AppWrapper>
+      {/* <Banner>
+        <BannerText>Yin Yoga Timer</BannerText>
+      </Banner> */}
       <ContentWrapper>
         <TimerWrapper>
           <Timer
