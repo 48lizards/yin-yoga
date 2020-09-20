@@ -2,7 +2,7 @@ import React, { useState, useEffect, useCallback } from "react";
 import styled from "styled-components";
 import Timer from "./Timer";
 import { Sequence } from "./types";
-import { generateSequence, pickPoses } from "./util";
+import { generateSequence, pickPoses, speak } from "./util";
 import useTimer from "./useTimer";
 import "./App.css";
 const banner = require("./assets/bannerlogo.png");
@@ -129,9 +129,7 @@ function App() {
   useEffect(() => {
     if (isRunning) {
       if (elapsedSeconds === 0) {
-        const utterance = new SpeechSynthesisUtterance();
-        utterance.text = currentPose.name;
-        window.speechSynthesis.speak(utterance);
+        speak(currentPose.name);
       }
       for (let i = 0; i < sequence.length; i++) {
         const pose = sequence[i];
@@ -140,17 +138,13 @@ function App() {
           elapsedSeconds >= pose.startTime &&
           elapsedSeconds < pose.endTime
         ) {
-          const utterance = new SpeechSynthesisUtterance();
-          utterance.text = pose.name;
-          window.speechSynthesis.speak(utterance);
+          speak(pose.name);
           setCurrentPoseIndex(i);
         } else if (
           i === sequence.length - 1 &&
           elapsedSeconds >= pose.endTime
         ) {
-          const utterance = new SpeechSynthesisUtterance();
-          utterance.text = "shavasana";
-          window.speechSynthesis.speak(utterance);
+          speak("shavasana");
           reset();
         }
       }

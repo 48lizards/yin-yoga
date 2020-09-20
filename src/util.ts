@@ -126,3 +126,9 @@ export function generateSequence(
   }
   return sequence;
 }
+
+export function speak(text: string): void {
+  const utterance = new SpeechSynthesisUtterance();
+  utterance.text = text;
+  window.speechSynthesis.speak(utterance);
+}
