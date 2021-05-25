@@ -14,7 +14,7 @@ const runTimerCallbackHandler = () => (
   }, 1000);
 };
 
-const timerMachine = Machine({
+const timerMachine = Machine<TimerContext>({
   id: "timer",
   initial: "paused",
   context: {
@@ -30,8 +30,7 @@ const timerMachine = Machine({
         TOGGLE_RUNNING: "paused",
         TICK: {
           actions: assign({
-            elapsedSeconds: (context: TimerContext) =>
-              context.elapsedSeconds + 1,
+            elapsedSeconds: (context) => context.elapsedSeconds + 1,
           }),
         },
       },
