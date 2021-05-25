@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/yin-yoga-timer/precache-manifest.934668896be6e291385ea3928a180e89.js"
+  "/yin-yoga-timer/precache-manifest.7aff8648ec6208958aaefe14f887ca38.js"
 );
 
 self.addEventListener('message', (event) => {

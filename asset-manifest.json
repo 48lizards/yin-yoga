@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/yin-yoga-timer/static/css/main.7156beea.chunk.css",
-    "main.js": "/yin-yoga-timer/static/js/main.582a1a55.chunk.js",
-    "main.js.map": "/yin-yoga-timer/static/js/main.582a1a55.chunk.js.map",
+    "main.js": "/yin-yoga-timer/static/js/main.41c80b65.chunk.js",
+    "main.js.map": "/yin-yoga-timer/static/js/main.41c80b65.chunk.js.map",
     "runtime-main.js": "/yin-yoga-timer/static/js/runtime-main.203bd97d.js",
     "runtime-main.js.map": "/yin-yoga-timer/static/js/runtime-main.203bd97d.js.map",
     "static/js/2.ed570724.chunk.js": "/yin-yoga-timer/static/js/2.ed570724.chunk.js",
     "static/js/2.ed570724.chunk.js.map": "/yin-yoga-timer/static/js/2.ed570724.chunk.js.map",
     "index.html": "/yin-yoga-timer/index.html",
-    "precache-manifest.934668896be6e291385ea3928a180e89.js": "/yin-yoga-timer/precache-manifest.934668896be6e291385ea3928a180e89.js",
+    "precache-manifest.7aff8648ec6208958aaefe14f887ca38.js": "/yin-yoga-timer/precache-manifest.7aff8648ec6208958aaefe14f887ca38.js",
     "service-worker.js": "/yin-yoga-timer/service-worker.js",
     "static/css/main.7156beea.chunk.css.map": "/yin-yoga-timer/static/css/main.7156beea.chunk.css.map",
     "static/js/2.ed570724.chunk.js.LICENSE.txt": "/yin-yoga-timer/static/js/2.ed570724.chunk.js.LICENSE.txt",
@@ -19,6 +19,6 @@
     "static/js/runtime-main.203bd97d.js",
     "static/js/2.ed570724.chunk.js",
     "static/css/main.7156beea.chunk.css",
-    "static/js/main.582a1a55.chunk.js"
+    "static/js/main.41c80b65.chunk.js"
   ]
 }
