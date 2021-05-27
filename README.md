@@ -1,8 +1,10 @@
 # Yin Yoga Timer 🧘
 
-An app for generating sequences of long-held static stretches. You can find more info on Yin Yoga and its poses at https://www.with-yinyoga.com/en/yin-yoga-poses.
+An app for generating sequences of long-held static stretches. 
 
 Live site: [yinyogatimer.app](yinyogatimer.app)
+
+You can find more info on Yin Yoga and its poses at https://www.with-yinyoga.com/en/yin-yoga-poses.
 
 ## Available Scripts
 
